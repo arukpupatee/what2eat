@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var ejs = require('ejs');
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');

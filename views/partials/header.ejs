@@ -9,8 +9,8 @@
             </a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="/">หน้าแรก</a></li>
-            <li><a href="/">กินอะไรดี ?</a></li>
+            <li <% if (data["page_active"]=="index") { %> class="active" <% } %> ><a href="/">หน้าแรก</a></li>
+            <li <% if (data["page_active"]=="find") { %> class="active" <% } %> ><a href="/find">กินอะไรดี ?</a></li>
         </ul>
     </div>
 </nav>
