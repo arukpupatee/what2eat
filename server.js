@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var ejs = require('ejs');
 var mysql = require('mysql'); //pakage for connect MySQL (MariaDB Compatible)
+var bodyParser = require('body-parser');
 
 //connect to Database
 var db = mysql.createConnection({
@@ -13,6 +14,10 @@ var db = mysql.createConnection({
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+
+// for parsing application/json
+app.use(bodyParser.json());
+
 app.get('/', function(req, res) {
   res.render('pages/index');
 });
@@ -66,6 +71,9 @@ app.get('/find', function(req, res) {
       });
     });
 	});
+});
+app.post('/result', function(req, res) {
+  console.log(req.body);
 });
 
 app.listen(8080);
