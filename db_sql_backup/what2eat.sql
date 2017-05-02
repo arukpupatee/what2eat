@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `consist_of` (
   CONSTRAINT `ingredient_in` FOREIGN KEY (`Ingredient_ID`) REFERENCES `ingredients` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table what2eat.consist_of: ~0 rows (approximately)
+-- Dumping data for table what2eat.consist_of: ~142 rows (approximately)
 DELETE FROM `consist_of`;
 /*!40000 ALTER TABLE `consist_of` DISABLE KEYS */;
 INSERT INTO `consist_of` (`Food_ID`, `Ingredient_ID`) VALUES
@@ -184,10 +184,11 @@ CREATE TABLE IF NOT EXISTS `food` (
   PRIMARY KEY (`ID`),
   KEY `Name` (`Name`(50)),
   KEY `served` (`Shop_ID`),
+  KEY `Type` (`Type`(30)),
   CONSTRAINT `served` FOREIGN KEY (`Shop_ID`) REFERENCES `shops` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table what2eat.food: ~0 rows (approximately)
+-- Dumping data for table what2eat.food: ~19 rows (approximately)
 DELETE FROM `food`;
 /*!40000 ALTER TABLE `food` DISABLE KEYS */;
 INSERT INTO `food` (`Shop_ID`, `ID`, `Name`, `Type`, `Price`) VALUES
@@ -218,10 +219,11 @@ CREATE TABLE IF NOT EXISTS `ingredients` (
   `Name` tinytext,
   `Type` tinytext,
   PRIMARY KEY (`ID`),
-  KEY `Name` (`Name`(50))
+  KEY `Name` (`Name`(50)),
+  KEY `Type` (`Type`(30))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table what2eat.ingredients: ~0 rows (approximately)
+-- Dumping data for table what2eat.ingredients: ~40 rows (approximately)
 DELETE FROM `ingredients`;
 /*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
 INSERT INTO `ingredients` (`ID`, `Name`, `Type`) VALUES
@@ -277,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `shops` (
   KEY `Title` (`Title`(60))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table what2eat.shops: ~0 rows (approximately)
+-- Dumping data for table what2eat.shops: ~6 rows (approximately)
 DELETE FROM `shops`;
 /*!40000 ALTER TABLE `shops` DISABLE KEYS */;
 INSERT INTO `shops` (`ID`, `Title`, `Type`, `Place`) VALUES
@@ -297,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `taste` (
   CONSTRAINT `taste` FOREIGN KEY (`Food_ID`) REFERENCES `food` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table what2eat.taste: ~0 rows (approximately)
+-- Dumping data for table what2eat.taste: ~25 rows (approximately)
 DELETE FROM `taste`;
 /*!40000 ALTER TABLE `taste` DISABLE KEYS */;
 INSERT INTO `taste` (`Food_ID`, `Taste`) VALUES

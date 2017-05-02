@@ -12,7 +12,37 @@
     </header>
     <main>
         <div class="jumbotron">
-            <h2>ช่วยบอกเราหน่อย ว่าคุณอยากกินอาหารแบบไหน ?</h2>
+            <h2>ช่วยบอกเราหน่อย ว่าคุณอยากกินอะไร ?</h2>
+            <div>
+              <h3>คุณอยากกินอาหารประเภทไหน</h3>
+              <% for (var i = 0; i < food_type.length; i++) {%>
+                <label class="checkbox-inline"><input checked type="checkbox" value="<%= food_type[i] %>"><%= food_type[i] %></label>
+              <% } %>
+            </div><br>
+            <div>
+              <h3>แล้วรสชาติล่ะ ?</h3>
+              <% for (var i = 0; i < taste.length; i++) {%>
+                <label class="checkbox-inline"><input checked type="checkbox" value="<%= taste[i] %>"><%= taste[i] %></label>
+              <% } %>
+            </div><br>
+            <div>
+              <h3>กินเนื้อสัตว์ไหม ?</h3>
+              <% for (var i = 0; i < meat.length; i++) {%>
+                <label class="checkbox-inline"><input checked type="checkbox" value="<%= meat[i] %>"><%= meat[i] %></label>
+              <% } %>
+            </div><br>
+            <div>
+              <h3>แล้วผักล่ะ ?</h3>
+              <% for (var i = 0; i < vegetable.length; i++) {%>
+                <label class="checkbox-inline"><input checked type="checkbox" value="<%= vegetable[i] %>"><%= vegetable[i] %></label>
+              <% } %>
+            </div><br>
+            <div>
+              <h3>มีส่วนผสมอย่างอื่นที่อยากบอกเราไหม ?</h3>
+              <% for (var i = 0; i < other_ingredients.length; i++) {%>
+                <label class="checkbox-inline"><input checked type="checkbox" value="<%= other_ingredients[i] %>"><%= other_ingredients[i] %></label>
+              <% } %>
+            </div><br>
         </div>
     </main>
     <footer>
