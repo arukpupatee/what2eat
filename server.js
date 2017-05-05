@@ -3,6 +3,9 @@ var app = express();
 var ejs = require('ejs');
 var mysql = require('mysql'); //pakage for connect MySQL (MariaDB Compatible)
 var bodyParser = require('body-parser');
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
 
 //connect to Database
 var db = mysql.createConnection({
@@ -19,6 +22,19 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//for SSL Encryption
+var privateKey = fs.readFileSync('sslcert/what2eat_key.pem','utf8');
+var certificate = fs.readFileSync('sslcert/what2eat_cert.pem','utf8');
+var credentials = {key: privateKey,cert: certificate};
+
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+//open server
+httpServer.listen(8080);
+httpsServer.listen(8443);
+console.log('Server is running at http://localhost:8080 and https://localhost:8443');
 
 app.get('/', function(req, res) {
   res.render('pages/index');
@@ -228,8 +244,6 @@ app.post('/result', function(req, res) {
   });
 });
 
-app.listen(8080);
-console.log('Server is running at localhost:8080');
 
 function isInArray(arr,value){
   var inArray = false;
