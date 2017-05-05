@@ -100,19 +100,19 @@ app.post('/result', function(req, res) {
   var food_type = [];
   var taste = [];
   var ingredients = []
-  if(typeof ft === undefined){
+  if(typeof ft === "undefined"){
   }else if(typeof ft === "string"){
     food_type[food_type.length] = ft;
   }else{
     food_type = ft;
   }
-  if(typeof t === undefined){
+  if(typeof t === "undefined"){
   }else if(typeof t === "string"){
     taste[taste.length] = t;
   }else{
     taste = t;
   }
-  if(typeof meat === undefined){
+  if(typeof meat === "undefined"){
   }else if(typeof meat === "string"){
     ingredients[food_type.length] = meat;
   }else{
@@ -128,7 +128,7 @@ app.post('/result', function(req, res) {
       ingredients[ingredients.length] = vegetable[i];
     }
   }
-  if(typeof other_ingredients === undefined){
+  if(typeof other_ingredients === "undefined"){
   }else if(typeof other_ingredients === "string"){
     ingredients[food_type.length] = other_ingredients;
   }else{
