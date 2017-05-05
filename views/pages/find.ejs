@@ -12,40 +12,42 @@
     </header>
     <main>
         <div class="jumbotron">
+          <form id="food_specified" action="/result" method="post">
             <h2>ช่วยบอกเราหน่อย ว่าคุณอยากกินอะไร ?</h2>
             <div>
               <h3>คุณอยากกินอาหารประเภทไหน</h3>
               <% for (var i = 0; i < food_type.length; i++) {%>
-                <label class="checkbox-inline"><input checked type="checkbox" name="food_type" value="<%= food_type[i] %>"><%= food_type[i] %></label>
+                <label class="checkbox-inline"><input type="checkbox" name="food_type" value="<%= food_type[i] %>"><%= food_type[i] %></label>
               <% } %>
             </div><br>
             <div>
               <h3>แล้วรสชาติล่ะ ?</h3>
               <% for (var i = 0; i < taste.length; i++) {%>
-                <label class="checkbox-inline"><input checked type="checkbox" name="taste" value="<%= taste[i] %>"><%= taste[i] %></label>
+                <label class="checkbox-inline"><input type="checkbox" name="taste" value="<%= taste[i] %>"><%= taste[i] %></label>
               <% } %>
             </div><br>
             <div>
               <h3>กินเนื้อสัตว์ไหม ?</h3>
               <% for (var i = 0; i < meat.length; i++) {%>
-                <label class="checkbox-inline"><input checked type="checkbox" name="meat" value="<%= meat[i] %>"><%= meat[i] %></label>
+                <label class="checkbox-inline"><input type="checkbox" name="meat" value="<%= meat[i] %>"><%= meat[i] %></label>
               <% } %>
             </div><br>
             <div>
               <h3>แล้วผักล่ะ ?</h3>
               <% for (var i = 0; i < vegetable.length; i++) {%>
-                <label class="checkbox-inline"><input checked type="checkbox" name="vegetable" value="<%= vegetable[i] %>"><%= vegetable[i] %></label>
+                <label class="checkbox-inline"><input type="checkbox" name="vegetable" value="<%= vegetable[i] %>"><%= vegetable[i] %></label>
               <% } %>
             </div><br>
             <div>
               <h3>มีส่วนผสมอย่างอื่นที่อยากบอกเราไหม ?</h3>
               <% for (var i = 0; i < other_ingredients.length; i++) {%>
-                <label class="checkbox-inline"><input checked type="checkbox" name="other_ingredients" value="<%= other_ingredients[i] %>"><%= other_ingredients[i] %></label>
+                <label class="checkbox-inline"><input type="checkbox" name="other_ingredients" value="<%= other_ingredients[i] %>"><%= other_ingredients[i] %></label>
               <% } %>
             </div><br><br>
             <div>
               <button type="button" class="btn btn-primary btn-lg" onclick='getResult()'>มีอะไรให้กินบ้าง</button>
             </div>
+          </form>
         </div>
     </main>
     <footer>
@@ -84,12 +86,14 @@ function getResult(){
       ingredients[ingredients.length] = $(this).val();
     }
   });
-  var data = {
+  var data_food = {
     "food_type":food_type,
     "taste":taste,
     "ingredients":ingredients,
   };
-  ajaxpost('/result',function(){},data);
+  var frm = document.getElementById("food_specified");
+  frm.submit();
+  //ajaxpost('/result',function(){},data);
 }
 
 function ajaxpost(path,doFunction,obj={}){
@@ -98,8 +102,7 @@ function ajaxpost(path,doFunction,obj={}){
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      var response = JSON.parse(this.responseText); // retrieve response from server
-      doFunction(response);
+      window.location.href = "../result";
     }
   }
   xmlhttp.open("POST", url+":"+port+""+path, true);

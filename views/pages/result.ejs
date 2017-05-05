@@ -1,0 +1,37 @@
+<!-- views/pages/result.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container-fluid">
+    <header>
+        <% var data= {'page_active':'find'}; %>
+        <% include ../partials/header %>
+    </header>
+    <main>
+        <div class="jumbotron">
+            <h2>และนี่คือ สิ่งที่เราคัดสรรมาให้คุณ !!</h2>
+            <br>
+            <div>
+              <% for (var i = 0; i < food_data.length; i++) {%>
+                <h3><%= food_data[i]["Food_Name"] %></h3>
+                <b>รสชาติ :</b> <% for (var j = 0; j < food_data[i]["Taste"].length; j++){%> <%= food_data[i]["Taste"][j] %> <% } %><br>
+                <b>ส่วนประกอบ :</b> <% for (var j = 0; j < food_data[i]["Ingredients"].length; j++){%> <%= food_data[i]["Ingredients"][j] %> <% } %><br>
+                <b>ร้านค้า :</b> <%= food_data[i]["Shop"] %><br>
+                <br>
+              <% } %>
+            </div><br>
+        </div>
+    </main>
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+</body>
+
+<script>
+
+</script>
+
+</html>
