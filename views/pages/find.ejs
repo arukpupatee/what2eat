@@ -58,39 +58,7 @@
 <script>
 
 function getResult(){
-  var food_type = [];
-  $('input[name="food_type"]').each(function(){
-    if($(this).is(':checked')){
-      food_type[food_type.length] = $(this).val();
-    }
-  });
-  var taste = [];
-  $('input[name="taste"]').each(function(){
-    if($(this).is(':checked')){
-      taste[taste.length] = $(this).val();
-    }
-  });
-  var ingredients = [];
-  $('input[name="meat"]').each(function(){
-    if($(this).is(':checked')){
-      ingredients[ingredients.length] = $(this).val();
-    }
-  });
-  $('input[name="vegetable"]').each(function(){
-    if($(this).is(':checked')){
-      ingredients[ingredients.length] = $(this).val();
-    }
-  });
-  $('input[name="other_ingredients"]').each(function(){
-    if($(this).is(':checked')){
-      ingredients[ingredients.length] = $(this).val();
-    }
-  });
-  var data_food = {
-    "food_type":food_type,
-    "taste":taste,
-    "ingredients":ingredients,
-  };
+  
   var frm = document.getElementById("food_specified");
   frm.submit();
   //ajaxpost('/result',function(){},data);

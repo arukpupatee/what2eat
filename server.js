@@ -91,7 +91,6 @@ app.get('/find', function(req, res) {
 	});
 });
 app.post('/result', function(req, res) {
-
   var ft = req.body["food_type"];
   var t = req.body["taste"];
   var meat = req.body["meat"];
