@@ -19,20 +19,20 @@
             <br><br>
             <div class="form-group">
               <label class="control-label col-sm-1">ชื่ออาหาร:</label>
-              <div class="col-sm-5">
+              <div class="col-sm-6">
                 <input type="text" class="form-control" name="food_name" placeholder="ชื่ออาหาร">
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-1">ประเภท:</label>
-              <div class="col-sm-5">
+              <div class="col-sm-6">
                 <select class="form-control" name="food_type" id="food_type_selector">
                   <% for (var i = 0; i < food_type.length; i++) {%>
                     <option><%= food_type[i] %></option>
                   <% } %>
                 </select>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-5">
                 <div class="form-group">
                   <div class="col-sm-8">
                     <input type="text" class="form-control" placeholder="หรือเพิ่มอาหารประเภทอื่นๆ" id="add_food_type_input">
@@ -45,12 +45,12 @@
             </div>
             <div class="form-group">
               <label class="control-label col-sm-1">รสชาติ:</label>
-              <div class="col-sm-5" id="taste_checklist">
+              <div class="col-sm-6" id="taste_checklist">
                 <% for (var i = 0; i < taste.length; i++) {%>
                   <label class="checkbox-inline"><input type="checkbox" name="taste" value="<%= taste[i] %>"><%= taste[i] %></label>
                 <% } %>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-5">
                 <div class="form-group">
                   <div class="col-sm-8">
                     <input type="text" class="form-control" placeholder="หรือเพิ่มรสชาติอื่นๆ" id="add_taste_input">
@@ -63,12 +63,12 @@
             </div>
             <div class="form-group">
               <label class="control-label col-sm-1">เนื้อสัตว์:</label>
-              <div class="col-sm-5" id="meat_checklist">
+              <div class="col-sm-6" id="meat_checklist">
                 <% for (var i = 0; i < meat.length; i++) {%>
                   <label class="checkbox-inline"><input type="checkbox" name="meat" value="<%= meat[i] %>"><%= meat[i] %></label>
                 <% } %>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-5">
                 <div class="form-group">
                   <div class="col-sm-8">
                     <input type="text" class="form-control" placeholder="หรือเพิ่มเนื้อสัตว์อื่นๆ" id="add_meat_input">
@@ -81,12 +81,12 @@
             </div>
             <div class="form-group">
               <label class="control-label col-sm-1">ผัก:</label>
-              <div class="col-sm-5" id="vegetable_checklist">
+              <div class="col-sm-6" id="vegetable_checklist">
                 <% for (var i = 0; i < vegetable.length; i++) {%>
                   <label class="checkbox-inline"><input type="checkbox" name="vegetable" value="<%= vegetable[i] %>"><%= vegetable[i] %></label>
                 <% } %>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-5">
                 <div class="form-group">
                   <div class="col-sm-8">
                     <input type="text" class="form-control" placeholder="หรือเพิ่มผักอื่นๆ" id="add_vegetable_input">
@@ -99,57 +99,58 @@
             </div>
             <div class="form-group">
               <label class="control-label col-sm-1">ส่วนผสมอื่นๆ:</label>
-              <div class="col-sm-5" id="other_ingredients_checklist">
+              <div class="col-sm-6" id="other_ingredients_checklist">
                 <% for (var i = 0; i < other_ingredients.length; i++) {%>
                   <label class="checkbox-inline"><input type="checkbox" name="other_ingredients" value="<%= other_ingredients[i] %>"><%= other_ingredients[i] %></label>
                 <% } %>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-5">
                 <div class="form-group">
-                  <div class="col-sm-8">
+                  <div class="col-sm-5">
                     <input type="text" class="form-control" placeholder="หรือเพิ่มส่วนผสมอื่นๆ" id="add_other_ingredients_input">
                   </div>
-                  <div class="col-sm-4">
-                    <button type="button" class="btn btn-success" onclick='add_other_ingredients()'>เพิ่มส่วนผสม</button>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-1">ชนิด:</label>
-                  <div class="col-sm-4">
+                  <div class="col-sm-3">
                     <select class="form-control" name="ingredient_type" id="ingredient_type_selector">
                       <% for (var i = 0; i < ingredient_type.length; i++) {%>
                         <option><%= ingredient_type[i] %></option>
                       <% } %>
                     </select>
                   </div>
-                  <div class="col-sm-3">
-                    <input type="text" class="form-control" placeholder="เพิ่มชนิดส่วนผสม" id="add_ingredient_type_input">
+                  <div class="col-sm-4">
+                    <button type="button" class="btn btn-success" onclick='add_other_ingredients()'>เพิ่มส่วนผสม</button>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-4"></div>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control input-sm" placeholder="เพิ่มชนิดส่วนผสม" id="add_ingredient_type_input">
                   </div>
                   <div class="col-sm-4">
-                    <button type="button" class="btn btn-success" onclick='add_ingredient_type()'>เพิ่มชนิดส่วนผสม</button>
+                    <button type="button" class="btn btn-info btn-sm" onclick='add_ingredient_type()'>เพิ่มชนิดส่วนผสม</button>
                   </div>
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-sm-1">ราคา:</label>
-              <div class="col-sm-5">
-                <input type="text" class="form-control" name="price" placeholder="ราคา">
-              </div>
-            </div>
-            <div class="form-group">
               <label class="control-label col-sm-1">ร้าน:</label>
-              <div class="col-sm-5">
+              <div class="col-sm-6">
                 <select class="form-control" name="shop_title" id="shop_title_selector">
                   <% for (var i = 0; i < shop_title.length; i++) {%>
                     <option><%= shop_title[i] %></option>
                   <% } %>
                 </select>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-5">
                 <div class="form-group">
-                  <div class="col-sm-8">
+                  <div class="col-sm-5">
                     <input type="text" class="form-control" placeholder="หรือเพิ่มร้านค้าอื่นๆ" id="add_shop_title_input">
+                  </div>
+                  <div class="col-sm-3">
+                    <select class="form-control" name="shop_type" id="shop_type_selector">
+                      <% for (var i = 0; i < shop_type.length; i++) {%>
+                        <option><%= shop_type[i] %></option>
+                      <% } %>
+                    </select>
                   </div>
                 </div>
                 <div class="form-group">
@@ -161,26 +162,25 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="control-label col-sm-1">ประเภท:</label>
+                  <div class="col-sm-4"></div>
                   <div class="col-sm-4">
-                    <select class="form-control" name="shop_type" id="shop_type_selector">
-                      <% for (var i = 0; i < shop_type.length; i++) {%>
-                        <option><%= shop_type[i] %></option>
-                      <% } %>
-                    </select>
-                  </div>
-                  <div class="col-sm-3">
-                    <input type="text" class="form-control" placeholder="เพิ่มประเภทร้านค้า" id="add_shop_type_input">
+                    <input type="text" class="form-control input-sm" placeholder="เพิ่มประเภทร้านค้า" id="add_shop_type_input">
                   </div>
                   <div class="col-sm-4">
-                    <button type="button" class="btn btn-success"  onclick='add_shop_type()'>เพิ่มประเภทร้านค้า</button>
+                    <button type="button" class="btn btn-info btn-sm"  onclick='add_shop_type()'>เพิ่มประเภทร้านค้า</button>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="form-group">
+              <label class="control-label col-sm-1">ราคา:</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="price" placeholder="ราคา">
+              </div>
+            </div>
             <br>
             <div class="form-group">
-              <div class="col-sm-2"></div>
+              <div class="col-sm-1"></div>
               <div class="col-sm-8">
                 <button type="button" class="btn btn-primary btn-lg" onclick='getResult()'>แนะนำอาหารเลย !!</button>
               </div>
