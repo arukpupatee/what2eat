@@ -284,9 +284,33 @@ app.get('/insert', function(req, res) {
           		other_ingredients[other_ingredients.length] = rows[index]["Name"];
             });
             obj["other_ingredients"] = other_ingredients;
+            db.query("SELECT DISTINCT Title FROM Shops", function (err, rows, fields) {
+              if (err) throw err
+              var shop = [];
+              Object.keys(rows).forEach(function(index){
+            		shop[shop.length] = rows[index]["Title"];
+              });
+              obj["shop_title"] = shop;
+              db.query("SELECT DISTINCT Type FROM Shops", function (err, rows, fields) {
+                if (err) throw err
+                var shop_type = [];
+                Object.keys(rows).forEach(function(index){
+              		shop_type[shop_type.length] = rows[index]["Type"];
+                });
+                obj["shop_type"] = shop_type;
+                db.query("SELECT DISTINCT Type FROM Ingredients WHERE NOT(Type='เนื้อสัตว์' OR Type='ผัก')", function (err, rows, fields) {
+                  if (err) throw err
+                  var ingredient_type = [];
+                  Object.keys(rows).forEach(function(index){
+                		ingredient_type[ingredient_type.length] = rows[index]["Type"];
+                  });
+                  obj["ingredient_type"] = ingredient_type;
 
-            //response page
-            res.render('pages/insert',obj);
+                  //response page
+                  res.render('pages/insert',obj);
+                });
+              });
+            });
           });
         });
       });
@@ -294,7 +318,55 @@ app.get('/insert', function(req, res) {
 	});
 });
 app.post('/insert', function(req, res) {
-  console.log(req.body);
+  var ft = req.body["food_type"];
+  var t = req.body["taste"];
+  var meat = req.body["meat"];
+  var vegetable = req.body["vegetable"];
+  var other_ingredients = req.body["other_ingredients"];
+  var food_name = req.body["food_name"];
+  var food_type = [];
+  var taste = [];
+  var ingredients = []
+  if(typeof ft === "undefined"){
+  }else if(typeof ft === "string"){
+    food_type[food_type.length] = ft;
+  }else{
+    food_type = ft;
+  }
+  if(typeof t === "undefined"){
+  }else if(typeof t === "string"){
+    taste[taste.length] = t;
+  }else{
+    taste = t;
+  }
+  if(typeof meat === "undefined"){
+  }else if(typeof meat === "string"){
+    ingredients[food_type.length] = meat;
+  }else{
+    for(var i=0 ; i<meat.length ;i++){
+      ingredients[ingredients.length] = meat[i];
+    }
+  }
+  if(typeof vegetable === "undefined"){
+  }else if(typeof vegetable === "string"){
+    ingredients[food_type.length] = vegetable;
+  }else{
+    for(var i=0 ; i<vegetable.length ;i++){
+      ingredients[ingredients.length] = vegetable[i];
+    }
+  }
+  if(typeof other_ingredients === "undefined"){
+  }else if(typeof other_ingredients === "string"){
+    ingredients[food_type.length] = other_ingredients;
+  }else{
+    for(var i=0 ; i<other_ingredients.length ;i++){
+      ingredients[ingredients.length] = other_ingredients[i];
+    }
+  }
+  console.log(food_name);
+  console.log(food_type);
+  console.log(taste);
+  console.log(ingredients);
   res.redirect('/insert');
 });
 
