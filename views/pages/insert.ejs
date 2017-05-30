@@ -37,7 +37,7 @@
                 <input type="text" class="form-control" placeholder="หรือเพิ่มอาหารประเภทอื่นๆ" id="add_food_type_input">
               </div>
               <div class="col-sm-1">
-                <button type="button" class="btn btn-success" id="add_food_type_btn">เพิ่ม</button>
+                <button type="button" class="btn btn-success" onclick='add_food_type()'>เพิ่ม</button>
               </div>
             </div>
             <div class="form-group">
@@ -51,7 +51,7 @@
                 <input type="text" class="form-control" placeholder="หรือเพิ่มรสชาติอื่นๆ" id="add_taste_input">
               </div>
               <div class="col-sm-1">
-                <button type="button" class="btn btn-success" id="add_taste_btn">เพิ่ม</button>
+                <button type="button" class="btn btn-success" onclick='add_taste()'>เพิ่ม</button>
               </div>
             </div>
             <div class="form-group">
@@ -65,7 +65,7 @@
                 <input type="text" class="form-control" placeholder="หรือเพิ่มเนื้อสัตว์อื่นๆ" id="add_meat_input">
               </div>
               <div class="col-sm-1">
-                <button type="button" class="btn btn-success" id="add_meat_btn">เพิ่ม</button>
+                <button type="button" class="btn btn-success" onclick='add_meat()'>เพิ่ม</button>
               </div>
             </div>
             <div class="form-group">
@@ -79,7 +79,7 @@
                 <input type="text" class="form-control" placeholder="หรือเพิ่มผักอื่นๆ" id="add_vegetable_input">
               </div>
               <div class="col-sm-1">
-                <button type="button" class="btn btn-success" id="add_vegetable_btn">เพิ่ม</button>
+                <button type="button" class="btn btn-success" onclick='add_vegetable()'>เพิ่ม</button>
               </div>
             </div>
             <div class="form-group">
@@ -90,10 +90,10 @@
                 <% } %>
               </div>
               <div class="col-sm-2">
-                <input type="text" class="form-control" placeholder="หรือเพิ่มผักอื่นๆ" id="add_other_ingredients_input">
+                <input type="text" class="form-control" placeholder="หรือเพิ่มส่วนผสมอื่นๆ" id="add_other_ingredients_input">
               </div>
               <div class="col-sm-1">
-                <button type="button" class="btn btn-success" id="add_other_ingredients_btn">เพิ่ม</button>
+                <button type="button" class="btn btn-success" onclick='add_other_ingredients()'>เพิ่ม</button>
               </div>
             </div>
             <br>
@@ -114,10 +114,50 @@
 <script>
 
 function getResult(){
-
   var frm = document.getElementById("food_insert_form");
   frm.submit();
-  //ajaxpost('/result',function(){},data);
+}
+function add_food_type(){
+  var food_type_input = document.getElementById("add_food_type_input");
+  if(food_type_input.value != ""){
+    var food_type_selector = document.getElementById("food_type_selector");
+    var food_type_option = document.createElement("option");
+    food_type_option.text = food_type_input.value;
+    food_type_selector.add(food_type_option);
+  }
+  food_type_input.value = "";
+}
+function add_taste(){
+  var taste_input = document.getElementById("add_taste_input");
+  if(taste_input.value != ""){
+    var taste_checklist = document.getElementById("taste_checklist");
+    taste_checklist.innerHTML += '<label class="checkbox-inline"><input type="checkbox" name="taste" value="'+taste_input.value+'">'+taste_input.value+'</label>'
+  }
+  taste_input.value = "";
+}
+function add_meat(){
+  var meat_input = document.getElementById("add_meat_input");
+  if(meat_input.value != ""){
+    var meat_checklist = document.getElementById("meat_checklist");
+    meat_checklist.innerHTML += '<label class="checkbox-inline"><input type="checkbox" name="meat" value="'+meat_input.value+'">'+meat_input.value+'</label>'
+  }
+  meat_input.value = "";
+}
+function add_vegetable(){
+  var vegetable_input = document.getElementById("add_vegetable_input");
+  if(vegetable_input.value != ""){
+    var vegetable_checklist = document.getElementById("vegetable_checklist");
+    vegetable_checklist.innerHTML += '<label class="checkbox-inline"><input type="checkbox" name="vegetable" value="'+vegetable_input.value+'">'+vegetable_input.value+'</label>'
+  }
+  vegetable_input.value = "";
+}
+function add_other_ingredients(){
+  var other_ingredients_input = document.getElementById("add_other_ingredients_input");
+  if(other_ingredients_input.value != ""){
+    var other_ingredients_checklist = document.getElementById("other_ingredients_checklist");
+    other_ingredients_checklist.innerHTML += '<label class="checkbox-inline"><input type="checkbox" name="other_ingredients" value="'+other_ingredients_input.value+'">'+other_ingredients_input.value+'</label>'
+  }
+  other_ingredients_input.value = "";
 }
 
 </script>
