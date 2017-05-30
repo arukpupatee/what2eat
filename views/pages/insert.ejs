@@ -1,0 +1,125 @@
+<!-- views/pages/insert.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container-fluid">
+    <header>
+        <% var data= {'page_active':'insert'}; %>
+        <% include ../partials/header %>
+    </header>
+    <main>
+        <div class="jumbotron">
+          <form id="food_insert_form" class="form-horizontal" action="/insert" method="post">
+            <div class="row">
+              <div class="col-sm-1"></div>
+              <div class="col-sm-8"><h2>ฉันมีอาหารอยากมาแนะนำให้ทุกคนด้วยแหละ !!</h2></div>
+            </div>
+            <br><br>
+            <div class="form-group">
+              <label class="control-label col-sm-2">ชื่ออาหาร:</label>
+              <div class="col-sm-5">
+                <input type="text" class="form-control" name="food_name" placeholder="ชื่ออาหาร">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2">ประเภท:</label>
+              <div class="col-sm-5">
+                <select class="form-control" name="food_type" id="food_type_selector">
+                  <% for (var i = 0; i < food_type.length; i++) {%>
+                    <option><%= food_type[i] %></option>
+                  <% } %>
+                </select>
+              </div>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="หรือเพิ่มอาหารประเภทอื่นๆ" id="add_food_type_input">
+              </div>
+              <div class="col-sm-1">
+                <button type="button" class="btn btn-success" id="add_food_type_btn">เพิ่ม</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2">รสชาติ:</label>
+              <div class="col-sm-5" id="taste_checklist">
+                <% for (var i = 0; i < taste.length; i++) {%>
+                  <label class="checkbox-inline"><input type="checkbox" name="taste" value="<%= taste[i] %>"><%= taste[i] %></label>
+                <% } %>
+              </div>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="หรือเพิ่มรสชาติอื่นๆ" id="add_taste_input">
+              </div>
+              <div class="col-sm-1">
+                <button type="button" class="btn btn-success" id="add_taste_btn">เพิ่ม</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2">เนื้อสัตว์:</label>
+              <div class="col-sm-5" id="meat_checklist">
+                <% for (var i = 0; i < meat.length; i++) {%>
+                  <label class="checkbox-inline"><input type="checkbox" name="meat" value="<%= meat[i] %>"><%= meat[i] %></label>
+                <% } %>
+              </div>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="หรือเพิ่มเนื้อสัตว์อื่นๆ" id="add_meat_input">
+              </div>
+              <div class="col-sm-1">
+                <button type="button" class="btn btn-success" id="add_meat_btn">เพิ่ม</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2">ผัก:</label>
+              <div class="col-sm-5" id="vegetable_checklist">
+                <% for (var i = 0; i < vegetable.length; i++) {%>
+                  <label class="checkbox-inline"><input type="checkbox" name="vegetable" value="<%= vegetable[i] %>"><%= vegetable[i] %></label>
+                <% } %>
+              </div>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="หรือเพิ่มผักอื่นๆ" id="add_vegetable_input">
+              </div>
+              <div class="col-sm-1">
+                <button type="button" class="btn btn-success" id="add_vegetable_btn">เพิ่ม</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2">ส่วนผสมอื่นๆ:</label>
+              <div class="col-sm-5" id="other_ingredients_checklist">
+                <% for (var i = 0; i < other_ingredients.length; i++) {%>
+                  <label class="checkbox-inline"><input type="checkbox" name="other_ingredients" value="<%= other_ingredients[i] %>"><%= other_ingredients[i] %></label>
+                <% } %>
+              </div>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="หรือเพิ่มผักอื่นๆ" id="add_other_ingredients_input">
+              </div>
+              <div class="col-sm-1">
+                <button type="button" class="btn btn-success" id="add_other_ingredients_btn">เพิ่ม</button>
+              </div>
+            </div>
+            <br>
+            <div class="form-group">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">
+                <button type="button" class="btn btn-primary btn-lg" onclick='getResult()'>แนะนำอาหารเลย !!</button>
+              </div>
+            </div>
+          </form>
+        </div>
+    </main>
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+</body>
+
+<script>
+
+function getResult(){
+
+  var frm = document.getElementById("food_insert_form");
+  frm.submit();
+  //ajaxpost('/result',function(){},data);
+}
+
+</script>
+
+</html>
