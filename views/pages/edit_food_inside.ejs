@@ -1,0 +1,66 @@
+<!-- views/pages/result.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container-fluid">
+    <header>
+        <% var data= {'page_active':'edit'}; %>
+        <% include ../partials/header %>
+    </header>
+    <main>
+        <div class="jumbotron">
+            <h2>แก้ไขข้อมูลอาหาร</h2>
+            <br>
+            <div>
+              <% for (var i = 0; i < food_data.length; i++) {%>
+                <div>
+                  <form id="form_food" class="form-horizontal">
+                    <div class="form-group">
+                      <label class="col-sm-1">ID:<%= food_data[i]["ID"] %></label>
+                      <label class="col-sm-1">ชื่ออาหาร:</label>
+                      <div class="col-sm-2">
+                        <input type="text" class="form-control" placeholder="ชื่ออาหาร" name="food_name" value="<%= food_data[i]["Name"] %>">
+                      </div>
+                      <label class="col-sm-1">ชนิด:</label>
+                      <div class="col-sm-2">
+                        <input type="text" class="form-control" placeholder="ชนิดอาหาร" name="food_type" value="<%= food_data[i]["Type"] %>">
+                      </div>
+                      <div class="col-sm-1">
+                        <button type="button" class="btn btn-success" onclick='edit_food(<%= food_data[i]["ID"] %>)'>แก้ไข</button>
+                      </div>
+                      <div class="col-sm-1">
+                        <button type="button" class="btn btn-danger" onclick='cancel()'>ยกเลิก</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              <% } %>
+            </div>
+            <br>
+        </div>
+    </main>
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+</body>
+
+<script>
+function edit_food(id){
+  var frm = document.getElementById("form_food");
+  frm.method = "POST"
+  frm.action = "/food/edit/"+id;
+  frm.submit();
+}
+function cancel(){
+  var frm = document.getElementById("form_food");
+  frm.method = "GET";
+  frm.action = "/food/edit/";
+  frm.submit();
+}
+
+</script>
+
+</html>

@@ -1,0 +1,33 @@
+<!-- views/pages/result.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container-fluid">
+    <header>
+        <% var data= {'page_active':'edit'}; %>
+        <% include ../partials/header %>
+    </header>
+    <main>
+        <div class="jumbotron text-center">
+            <h2>อะไรที่คุณจะช่วยเราแก้ไข</h2>
+            <br>
+            <div>
+              <a class="btn btn-primary btn-lg" href="/food/edit" role="button">อาหาร</a>
+              <a class="btn btn-primary btn-lg" href="/ingredients/edit" role="button">ส่วนผสม</a>
+              <a class="btn btn-primary btn-lg" href="/shops/edit" role="button">ร้านค้า</a>
+            </div><br>
+        </div>
+    </main>
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+</body>
+
+<script>
+
+</script>
+
+</html>

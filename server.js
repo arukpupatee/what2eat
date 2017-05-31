@@ -437,7 +437,58 @@ app.post('/shop/insert/', function(req, res) {
     }
   });
 });
-
+app.get('/edit', function(req, res) {
+  res.render('pages/edit');
+});
+app.get('/food/edit', function(req, res) {
+  db.query("SELECT * FROM Food", function (err, rows, fields) {
+    var food_data = [];
+    Object.keys(rows).forEach(function(index){
+      food_data[food_data.length] = rows[index];
+    });
+    var obj = {"food_data":food_data};
+    res.render('pages/edit_food',obj);
+  });
+});
+app.get('/ingredients/edit', function(req, res) {
+  res.render('pages/edit_ingredients');
+});
+app.get('/shops/edit', function(req, res) {
+  res.render('pages/edit_shops');
+});
+app.post('/food/delete/:id', function(req, res){
+  var food_id = req.params.id;
+  db.query("DELETE FROM Consist_of WHERE Food_ID="+food_id, function (err, rows, fields) {
+    if (err) throw err
+    db.query("DELETE FROM Taste WHERE Food_ID="+food_id, function (err, rows, fields) {
+      if (err) throw err
+      db.query("DELETE FROM Food WHERE ID="+food_id, function (err, rows, fields) {
+        if (err) throw err
+        res.redirect('/food/edit');
+      });
+    });
+  });
+});
+app.get('/food/edit/:id', function(req, res){
+  var food_id = req.params.id;
+  db.query("SELECT * FROM Food WHERE ID="+food_id, function (err, rows, fields) {
+    var food_data = [];
+    Object.keys(rows).forEach(function(index){
+      food_data[food_data.length] = rows[index];
+    });
+    var obj = {"food_data":food_data};
+    res.render('pages/edit_food_inside',obj);
+  });
+});
+app.post('/food/edit/:id', function(req, res){
+  var food_id = req.params.id;
+  var food_name = req.body.food_name;
+  var food_type = req.body.food_type;
+  db.query("UPDATE Food SET Name='"+food_name+"',Type='"+food_type+"' WHERE ID="+food_id, function (err, rows, fields) {
+    if (err) throw err
+    res.redirect('/food/edit');
+  });
+});
 
 
 

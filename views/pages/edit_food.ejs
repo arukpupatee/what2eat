@@ -1,0 +1,60 @@
+<!-- views/pages/result.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container-fluid">
+    <header>
+        <% var data= {'page_active':'edit'}; %>
+        <% include ../partials/header %>
+    </header>
+    <main>
+        <div class="jumbotron">
+            <h2>แก้ไขข้อมูลอาหาร</h2>
+            <br>
+            <div>
+              <% for (var i = 0; i < food_data.length; i++) {%>
+                <div>
+                  <form id="form_food_<%= food_data[i]["ID"] %>" class="form-horizontal">
+                    <div class="form-group">
+                      <label class="col-sm-1">ID:<%= food_data[i]["ID"] %></label>
+                      <label class="col-sm-3">ชื่ออาหาร:<%= food_data[i]["Name"] %></label>
+                      <label class="col-sm-3">ชนิด:<%= food_data[i]["Type"] %></label>
+                      <div class="col-sm-1">
+                        <button type="button" class="btn btn-success" onclick='edit_food(<%= food_data[i]["ID"] %>)'>แก้ไข</button>
+                      </div>
+                      <div class="col-sm-1">
+                        <button type="button" class="btn btn-danger" onclick='delete_food(<%= food_data[i]["ID"] %>)'>ลบ</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              <% } %>
+            </div>
+            <br>
+        </div>
+    </main>
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+</body>
+
+<script>
+function edit_food(id){
+  var frm = document.getElementById("form_food_"+id);
+  frm.method = "GET";
+  frm.action = "/food/edit/"+id;
+  frm.submit();
+}
+function delete_food(id){
+  var frm = document.getElementById("form_food_"+id);
+  frm.method = "POST";
+  frm.action = "/food/delete/"+id;
+  frm.submit();
+}
+
+</script>
+
+</html>
