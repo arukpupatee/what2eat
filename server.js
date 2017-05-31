@@ -317,16 +317,18 @@ app.get('/insert', function(req, res) {
     });
 	});
 });
-app.post('/insert', function(req, res) {
+app.post('/food/insert/', function(req, res) {
   var ft = req.body["food_type"];
   var t = req.body["taste"];
   var meat = req.body["meat"];
   var vegetable = req.body["vegetable"];
   var other_ingredients = req.body["other_ingredients"];
   var food_name = req.body["food_name"];
+  var price = req.body["price"];
   var food_type = [];
   var taste = [];
   var ingredients = []
+  var shop = req.body["shop_title"];
   if(typeof ft === "undefined"){
   }else if(typeof ft === "string"){
     food_type[food_type.length] = ft;
@@ -363,26 +365,36 @@ app.post('/insert', function(req, res) {
       ingredients[ingredients.length] = other_ingredients[i];
     }
   }
-  console.log(food_name);
-  console.log(food_type);
-  console.log(taste);
-  console.log(ingredients);
-  res.redirect('/insert');
-});
-app.post('/food/insert/', function(req, res) {
-  var return_obj = {};
-  res.json(return_obj);
-});
-app.post('/taste/insert/', function(req, res) {
+  db.query("SELECT DISTINCT ID FROM Shops WHERE Title='"+shop+"'", function (err, rows, fields) {
+    if (err) throw err
+    var shop_id = rows[0]["ID"];
 
-  var return_obj = {};
-  res.json(return_obj);
+    db.query("SELECT ID FROM Food ORDER BY ID DESC LIMIT 1", function (err, rows, fields) {
+      if (err) throw err
+      var food_id = rows[0]["ID"] + 1;
+      db.query("INSERT INTO Food (Shop_ID,ID,Name,Type,Price) VALUES ("+shop_id+","+food_id+",'"+food_name+"','"+food_type+"',"+price+")", function (err, rows, fields) {
+        if (err) throw err
+        for(i=0;i<taste.length;i++){
+          db.query("INSERT INTO Taste (Food_ID,Taste) VALUES ("+food_id+",'"+taste[i]+"')", function (err, rows, fields) {
+          });
+        }
+        for(j=0;j<ingredients.length;j++){
+          db.query("SELECT DISTINCT ID FROM Ingredients WHERE Name='"+ingredients[j]+"'", function (err, rows, fields) {
+            var ingredient_id = rows[0]["ID"];
+            db.query("INSERT INTO Consist_of (Food_ID,Ingredient_ID) VALUES ("+food_id+",'"+ingredient_id+"')", function (err, rows, fields) {
+            });
+          });
+        }
+        res.redirect('/insert');
+      });
+    });
+  });
 });
 app.post('/ingredients/insert/', function(req, res) {
   var ingredient_name = req.body.ingredient_name;
   var ingredient_type = req.body.ingredient_type;
   var return_obj = {}
-  db.query("SELECT Name FROM Ingredients WHERE Name='"+ingredient_name+"' AND Type='"+ingredient_type+"'", function (err, rows, fields) {
+  db.query("SELECT Name FROM Ingredients WHERE Name='"+ingredient_name+"'", function (err, rows, fields) {
     if (err) throw err
     if(rows.length == 0){
       db.query("SELECT ID FROM Ingredients ORDER BY ID DESC LIMIT 1", function (err, rows, fields) {
@@ -406,7 +418,7 @@ app.post('/shop/insert/', function(req, res) {
   var shop_type = req.body.shop_type;
   var shop_place = req.body.shop_place;
   var return_obj = {}
-  db.query("SELECT Title FROM Shops WHERE Title='"+shop_title+"' AND Type='"+shop_type+"'", function (err, rows, fields) {
+  db.query("SELECT Title FROM Shops WHERE Title='"+shop_title+"'", function (err, rows, fields) {
     if (err) throw err
     if(rows.length == 0){
       db.query("SELECT ID FROM Shops ORDER BY ID DESC LIMIT 1", function (err, rows, fields) {
