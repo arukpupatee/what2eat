@@ -369,6 +369,63 @@ app.post('/insert', function(req, res) {
   console.log(ingredients);
   res.redirect('/insert');
 });
+app.post('/food/insert/', function(req, res) {
+  var return_obj = {};
+  res.json(return_obj);
+});
+app.post('/taste/insert/', function(req, res) {
+
+  var return_obj = {};
+  res.json(return_obj);
+});
+app.post('/ingredients/insert/', function(req, res) {
+  var ingredient_name = req.body.ingredient_name;
+  var ingredient_type = req.body.ingredient_type;
+  var return_obj = {}
+  db.query("SELECT Name FROM Ingredients WHERE Name='"+ingredient_name+"' AND Type='"+ingredient_type+"'", function (err, rows, fields) {
+    if (err) throw err
+    if(rows.length == 0){
+      db.query("SELECT ID FROM Ingredients ORDER BY ID DESC LIMIT 1", function (err, rows, fields) {
+        if (err) throw err
+        var ingredient_id = rows[0]["ID"] + 1;
+        db.query("INSERT INTO Ingredients (ID, Name, Type) VALUES ("+ingredient_id+",'"+ingredient_name+"','"+ingredient_type+"')", function (err, rows, fields) {
+          if (err) throw err
+          return_obj.status = "success";
+          res.json(return_obj);
+        });
+      });
+    }
+    else{
+      return_obj.status = "duplicate";
+      res.json(return_obj);
+    }
+  });
+});
+app.post('/shop/insert/', function(req, res) {
+  var shop_title = req.body.shop_title;
+  var shop_type = req.body.shop_type;
+  var shop_place = req.body.shop_place;
+  var return_obj = {}
+  db.query("SELECT Title FROM Shops WHERE Title='"+shop_title+"' AND Type='"+shop_type+"'", function (err, rows, fields) {
+    if (err) throw err
+    if(rows.length == 0){
+      db.query("SELECT ID FROM Shops ORDER BY ID DESC LIMIT 1", function (err, rows, fields) {
+        if (err) throw err
+        var shop_id = rows[0]["ID"] + 1;
+        db.query("INSERT INTO Shops (ID, Title, Type, Place) VALUES ("+shop_id+",'"+shop_title+"','"+shop_type+"','"+shop_place+"')", function (err, rows, fields) {
+          if (err) throw err
+          return_obj.status = "success";
+          res.json(return_obj);
+        });
+      });
+    }
+    else{
+      return_obj.status = "duplicate";
+      res.json(return_obj);
+    }
+  });
+});
+
 
 
 

@@ -213,33 +213,49 @@ function add_taste(){
   var taste_input = document.getElementById("add_taste_input");
   if(taste_input.value != ""){
     var taste_checklist = document.getElementById("taste_checklist");
-    taste_checklist.innerHTML += '<label class="checkbox-inline"><input type="checkbox" name="taste" value="'+taste_input.value+'">'+taste_input.value+'</label>'
+    taste_checklist.innerHTML += '<label class="checkbox-inline"><input type="checkbox" name="taste" value="'+taste_input.value+'">'+taste_input.value+'</label>';
+    taste_input.value = "";
   }
-  taste_input.value = "";
 }
 function add_meat(){
   var meat_input = document.getElementById("add_meat_input");
   if(meat_input.value != ""){
-    var meat_checklist = document.getElementById("meat_checklist");
-    meat_checklist.innerHTML += '<label class="checkbox-inline"><input type="checkbox" name="meat" value="'+meat_input.value+'">'+meat_input.value+'</label>'
+    var obj = {"ingredient_name":meat_input.value,"ingredient_type":"เนื้อสัตว์"};
+    ajax_post("/ingredients/insert/",obj,function(res_obj){
+      if(res_obj.status == "success"){
+        var meat_checklist = document.getElementById("meat_checklist");
+        meat_checklist.innerHTML += '<label class="checkbox-inline"><input type="checkbox" name="meat" value="'+meat_input.value+'">'+meat_input.value+'</label>'
+      }
+      meat_input.value = "";
+    });
   }
-  meat_input.value = "";
 }
 function add_vegetable(){
   var vegetable_input = document.getElementById("add_vegetable_input");
   if(vegetable_input.value != ""){
-    var vegetable_checklist = document.getElementById("vegetable_checklist");
-    vegetable_checklist.innerHTML += '<label class="checkbox-inline"><input type="checkbox" name="vegetable" value="'+vegetable_input.value+'">'+vegetable_input.value+'</label>'
+    var obj = {"ingredient_name":vegetable_input.value,"ingredient_type":"ผัก"};
+    ajax_post("/ingredients/insert/",obj,function(res_obj){
+      if(res_obj.status == "success"){
+        var vegetable_checklist = document.getElementById("vegetable_checklist");
+        vegetable_checklist.innerHTML += '<label class="checkbox-inline"><input type="checkbox" name="vegetable" value="'+vegetable_input.value+'">'+vegetable_input.value+'</label>'
+      }
+      vegetable_input.value = "";
+    });
   }
-  vegetable_input.value = "";
 }
 function add_other_ingredients(){
   var other_ingredients_input = document.getElementById("add_other_ingredients_input");
+  var ingredient_type = document.getElementById("ingredient_type_selector").value;
   if(other_ingredients_input.value != ""){
-    var other_ingredients_checklist = document.getElementById("other_ingredients_checklist");
-    other_ingredients_checklist.innerHTML += '<label class="checkbox-inline"><input type="checkbox" name="other_ingredients" value="'+other_ingredients_input.value+'">'+other_ingredients_input.value+'</label>'
+    var obj = {"ingredient_name":other_ingredients_input.value,"ingredient_type":ingredient_type};
+    ajax_post("/ingredients/insert/",obj,function(res_obj){
+      if(res_obj.status == "success"){
+        var other_ingredients_checklist = document.getElementById("other_ingredients_checklist");
+        other_ingredients_checklist.innerHTML += '<label class="checkbox-inline"><input type="checkbox" name="other_ingredients" value="'+other_ingredients_input.value+'">'+other_ingredients_input.value+'</label>'
+      }
+      other_ingredients_input.value = "";
+    });
   }
-  other_ingredients_input.value = "";
 }
 function add_ingredient_type(){
   var ingredient_type_input = document.getElementById("add_ingredient_type_input");
@@ -254,13 +270,19 @@ function add_ingredient_type(){
 function add_shop(){
   var shop_title_input = document.getElementById("add_shop_title_input");
   var shop_place_input = document.getElementById("add_shop_place_input");
+  var shop_type = document.getElementById("shop_type_selector").value;
   if((shop_title_input.value != "") && (shop_place_input.value != "")){
-    var shop_title_selector = document.getElementById("shop_title_selector");
-    var option = document.createElement("option");
-    option.text = shop_title_input.value;
-    shop_title_selector.add(option);
-    shop_title_input.value = "";
-    shop_place_input.value = "";
+    var obj = {"shop_title":shop_title_input.value,"shop_type":shop_type,"shop_place":shop_place_input.value};
+    ajax_post("/shop/insert/",obj,function(res_obj){
+      if(res_obj.status == "success"){
+        var shop_title_selector = document.getElementById("shop_title_selector");
+        var option = document.createElement("option");
+        option.text = shop_title_input.value;
+        shop_title_selector.add(option);
+      }
+      shop_title_input.value = "";
+      shop_place_input.value = "";
+    });
   }
 }
 function add_shop_type(){
@@ -272,6 +294,19 @@ function add_shop_type(){
     shop_type_selector.add(option);
   }
   shop_type_input.value = "";
+}
+function ajax_post(path,json_obj,doFunction){
+  var port = 8080;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var response = JSON.parse(this.responseText); // retrieve response from server
+      doFunction(response);
+    }
+  }
+  xmlhttp.open("POST", "http://localhost:"+port+""+path, true);
+  xmlhttp.setRequestHeader("Content-Type", "application/json");
+  xmlhttp.send(JSON.stringify(json_obj));
 }
 
 </script>
